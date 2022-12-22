@@ -1,0 +1,804 @@
+package com.sample
+import javax.swing.JOptionPane
+import javax.swing.JFrame
+import org.kie.api.runtime.KieRuntime
+import javax.swing.JRadioButton
+import javax.swing.JPanel
+global JFrame frame
+global javax.swing.JTextArea textArea
+import java.util.ArrayList
+import java.util.List
+import java.util.Arrays;
+import java.util.ArrayList
+import javax.swing.JLabel;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import com.sample.Odpowiedz;
+rule "MY FAVORITE THING TO DO IS"
+    when
+    then
+    ArrayList<String> warianty = new ArrayList<>();
+    warianty.add("EAT");
+    warianty.add("SLEEP");
+    warianty.add("SWIM");
+    warianty.add("RUN");
+    warianty.add("MATE");
+    warianty.add("I DON'T UNDERSTAND THIS CHART");
+    Odpowiedz odpowiedz = zapytaj(frame, kcontext.getKieRuntime(), "MY FAVORITE THING TO DO IS", warianty);
+    insert (odpowiedz);
+end
+
+rule "MY FAVORITE THING TO DO IS - EAT - WHAT?"
+    when
+    Odpowiedz(pytanie == "MY FAVORITE THING TO DO IS" && odpowiedz == "EAT")
+    then
+    ArrayList<String> warianty = new ArrayList<>();
+    warianty.add("NO MEAT");
+    warianty.add("EH, I'M NOT THAT PICKY");
+    warianty.add("THINGS WITH BLOOD");
+    Odpowiedz odpowiedz = zapytaj(frame, kcontext.getKieRuntime(), "WHAT?", warianty);
+    insert (odpowiedz);
+end
+
+rule "WHAT? - NO MEAT - ARE YOU A HIPPIE?"
+    when
+    Odpowiedz(pytanie == "WHAT?" && odpowiedz == "NO MEAT")
+    then
+    ArrayList<String> warianty = new ArrayList<>();
+    warianty.add("YES");
+    warianty.add("NO");
+    Odpowiedz odpowiedz = zapytaj(frame, kcontext.getKieRuntime(), "ARE YOU A HIPPIE?", warianty);
+    insert (odpowiedz);
+end
+
+rule "ARE YOU A HIPPIE? - YES - ROCKIN' THE BEARD?"
+    when
+    Odpowiedz(pytanie == "ARE YOU A HIPPIE?" && odpowiedz == "YES")
+    then
+    ArrayList<String> warianty = new ArrayList<>();
+    warianty.add("FULL");
+    warianty.add("I'M MORE INTO TATS");
+    Odpowiedz odpowiedz = zapytaj(frame, kcontext.getKieRuntime(), "ROCKIN' THE BEARD?", warianty);
+    insert (odpowiedz);
+end
+
+rule "ROCKIN' THE BEARD? - FULL - BODY"
+    when
+    Odpowiedz(pytanie == "ROCKIN' THE BEARD?" && odpowiedz == "FULL")
+    then
+    polec(frame, kcontext.getKieRuntime(), "BODY");
+end
+
+
+rule "ROCKIN' THE BEARD? - I'M MORE INTO TATS - GRANT'S ZEBRA"
+    when
+    Odpowiedz(pytanie == "ROCKIN' THE BEARD?" && odpowiedz == "I'M MORE INTO TATS")
+    then
+    polec(frame, kcontext.getKieRuntime(), "GRANT'S ZEBRA");
+end
+
+
+rule "ARE YOU A HIPPIE? - NO - HOW DO YOU VOTE?"
+    when
+    Odpowiedz(pytanie == "ARE YOU A HIPPIE?" && odpowiedz == "NO")
+    then
+    ArrayList<String> warianty = new ArrayList<>();
+    warianty.add("FOR GUNS");
+    warianty.add("FOR THE UNDERGROUND MOVEMENT");
+    Odpowiedz odpowiedz = zapytaj(frame, kcontext.getKieRuntime(), "HOW DO YOU VOTE?", warianty);
+    insert (odpowiedz);
+end
+
+rule "HOW DO YOU VOTE? - FOR GUNS - AFRICAN ELEPHANT"
+    when
+    Odpowiedz(pytanie == "HOW DO YOU VOTE?" && odpowiedz == "FOR GUNS")
+    then
+    polec(frame, kcontext.getKieRuntime(), "AFRICAN ELEPHANT");
+end
+
+
+rule "HOW DO YOU VOTE? - FOR THE UNDERGROUND MOVEMENT - GARDEN WORM"
+    when
+    Odpowiedz(pytanie == "HOW DO YOU VOTE?" && odpowiedz == "FOR THE UNDERGROUND MOVEMENT")
+    then
+    polec(frame, kcontext.getKieRuntime(), "GARDEN WORM");
+end
+
+
+rule "WHAT? - EH, I'M NOT THAT PICKY - WOULD YOU CLIMB A TREE TO GET IT?"
+    when
+    Odpowiedz(pytanie == "WHAT?" && odpowiedz == "EH, I'M NOT THAT PICKY")
+    then
+    ArrayList<String> warianty = new ArrayList<>();
+    warianty.add("YES");
+    warianty.add("NO");
+    Odpowiedz odpowiedz = zapytaj(frame, kcontext.getKieRuntime(), "WOULD YOU CLIMB A TREE TO GET IT?", warianty);
+    insert (odpowiedz);
+end
+
+rule "WOULD YOU CLIMB A TREE TO GET IT? - YES - HOW QUICKLY?"
+    when
+    Odpowiedz(pytanie == "WOULD YOU CLIMB A TREE TO GET IT?" && odpowiedz == "YES")
+    then
+    ArrayList<String> warianty = new ArrayList<>();
+    warianty.add("FASTER THAN YOU'D THINK");
+    warianty.add("SLOWER THAN YOU'D THINK");
+    Odpowiedz odpowiedz = zapytaj(frame, kcontext.getKieRuntime(), "HOW QUICKLY?", warianty);
+    insert (odpowiedz);
+end
+
+rule "HOW QUICKLY? - FASTER THAN YOU'D THINK - HIMALAYAN BLACK BEAR"
+    when
+    Odpowiedz(pytanie == "HOW QUICKLY?" && odpowiedz == "FASTER THAN YOU'D THINK")
+    then
+    polec(frame, kcontext.getKieRuntime(), "HIMALAYAN BLACK BEAR");
+end
+
+
+rule "HOW QUICKLY? - SLOWER THAN YOU'D THINK - TWO"
+    when
+    Odpowiedz(pytanie == "HOW QUICKLY?" && odpowiedz == "SLOWER THAN YOU'D THINK")
+    then
+    polec(frame, kcontext.getKieRuntime(), "TWO");
+end
+
+
+rule "WOULD YOU CLIMB A TREE TO GET IT? - NO - WHY SO LAZY?"
+    when
+    Odpowiedz(pytanie == "WOULD YOU CLIMB A TREE TO GET IT?" && odpowiedz == "NO")
+    then
+    ArrayList<String> warianty = new ArrayList<>();
+    warianty.add("I NEED 9 MONTHS OF BEAUTY SLEEP");
+    warianty.add("TRASH CANS ARE EASIER");
+    Odpowiedz odpowiedz = zapytaj(frame, kcontext.getKieRuntime(), "WHY SO LAZY?", warianty);
+    insert (odpowiedz);
+end
+
+rule "WHY SO LAZY? - I NEED 9 MONTHS OF BEAUTY SLEEP - ALPINE MARMOT"
+    when
+    Odpowiedz(pytanie == "WHY SO LAZY?" && odpowiedz == "I NEED 9 MONTHS OF BEAUTY SLEEP")
+    then
+    polec(frame, kcontext.getKieRuntime(), "ALPINE MARMOT");
+end
+
+
+rule "WHY SO LAZY? - TRASH CANS ARE EASIER - NORTHERN RACCOON"
+    when
+    Odpowiedz(pytanie == "WHY SO LAZY?" && odpowiedz == "TRASH CANS ARE EASIER")
+    then
+    polec(frame, kcontext.getKieRuntime(), "NORTHERN RACCOON");
+end
+
+
+rule "WHAT? - THINGS WITH BLOOD - DO YOU KILL IT?"
+    when
+    Odpowiedz(pytanie == "WHAT?" && odpowiedz == "THINGS WITH BLOOD")
+    then
+    ArrayList<String> warianty = new ArrayList<>();
+    warianty.add("YES");
+    warianty.add("NO");
+    Odpowiedz odpowiedz = zapytaj(frame, kcontext.getKieRuntime(), "DO YOU KILL IT?", warianty);
+    insert (odpowiedz);
+end
+
+rule "DO YOU KILL IT? - YES - HOW LONG DOES IT TAKE?"
+    when
+    Odpowiedz(pytanie == "DO YOU KILL IT?" && odpowiedz == "YES")
+    then
+    ArrayList<String> warianty = new ArrayList<>();
+    warianty.add("HOURS");
+    warianty.add("A FEW SECONDS");
+    warianty.add("I TIE IT UP OUT BACK AND KILL IT LATER");
+    Odpowiedz odpowiedz = zapytaj(frame, kcontext.getKieRuntime(), "HOW LONG DOES IT TAKE?", warianty);
+    insert (odpowiedz);
+end
+
+rule "HOW LONG DOES IT TAKE? - HOURS - BURMESE PYTHON"
+    when
+    Odpowiedz(pytanie == "HOW LONG DOES IT TAKE?" && odpowiedz == "HOURS")
+    then
+    polec(frame, kcontext.getKieRuntime(), "BURMESE PYTHON");
+end
+
+
+rule "HOW LONG DOES IT TAKE? - A FEW SECONDS - SALTWATER CROCODILE"
+    when
+    Odpowiedz(pytanie == "HOW LONG DOES IT TAKE?" && odpowiedz == "A FEW SECONDS")
+    then
+    polec(frame, kcontext.getKieRuntime(), "SALTWATER CROCODILE");
+end
+
+
+rule "HOW LONG DOES IT TAKE? - I TIE IT UP OUT BACK AND KILL IT LATER - BLACK WIDOW SPIDER"
+    when
+    Odpowiedz(pytanie == "HOW LONG DOES IT TAKE?" && odpowiedz == "I TIE IT UP OUT BACK AND KILL IT LATER")
+    then
+    polec(frame, kcontext.getKieRuntime(), "BLACK WIDOW SPIDER");
+end
+
+
+rule "DO YOU KILL IT? - NO - WHY NOT?"
+    when
+    Odpowiedz(pytanie == "DO YOU KILL IT?" && odpowiedz == "NO")
+    then
+    ArrayList<String> warianty = new ArrayList<>();
+    warianty.add("'CUZ SOMEONE ELSE DOES");
+    warianty.add("I LIKE MY STEAK EXTRA RARE");
+    Odpowiedz odpowiedz = zapytaj(frame, kcontext.getKieRuntime(), "WHY NOT?", warianty);
+    insert (odpowiedz);
+end
+
+rule "WHY NOT? - 'CUZ SOMEONE ELSE DOES - RUPPELL'S GRIFFIN VULTURE"
+    when
+    Odpowiedz(pytanie == "WHY NOT?" && odpowiedz == "'CUZ SOMEONE ELSE DOES")
+    then
+    polec(frame, kcontext.getKieRuntime(), "RUPPELL'S GRIFFIN VULTURE");
+end
+
+
+rule "WHY NOT? - I LIKE MY STEAK EXTRA RARE - HORSE LEECH"
+    when
+    Odpowiedz(pytanie == "WHY NOT?" && odpowiedz == "I LIKE MY STEAK EXTRA RARE")
+    then
+    polec(frame, kcontext.getKieRuntime(), "HORSE LEECH");
+end
+
+
+rule "MY FAVORITE THING TO DO IS - SLEEP - 'CUZ YOU WORK THE GRAVEYARD SHIFT?"
+    when
+    Odpowiedz(pytanie == "MY FAVORITE THING TO DO IS" && odpowiedz == "SLEEP")
+    then
+    ArrayList<String> warianty = new ArrayList<>();
+    warianty.add("YES");
+    warianty.add("NO");
+    Odpowiedz odpowiedz = zapytaj(frame, kcontext.getKieRuntime(), "'CUZ YOU WORK THE GRAVEYARD SHIFT?", warianty);
+    insert (odpowiedz);
+end
+
+rule "'CUZ YOU WORK THE GRAVEYARD SHIFT? - YES - BROWN BAT"
+    when
+    Odpowiedz(pytanie == "'CUZ YOU WORK THE GRAVEYARD SHIFT?" && odpowiedz == "YES")
+    then
+    polec(frame, kcontext.getKieRuntime(), "BROWN BAT");
+end
+
+
+rule "'CUZ YOU WORK THE GRAVEYARD SHIFT? - NO - ARE YOU CUDDLY?"
+    when
+    Odpowiedz(pytanie == "'CUZ YOU WORK THE GRAVEYARD SHIFT?" && odpowiedz == "NO")
+    then
+    ArrayList<String> warianty = new ArrayList<>();
+    warianty.add("MY MOTHER SAYS I AM");
+    warianty.add("PEOPLE OTHER THAN MY MOTHER SAY I AM");
+    Odpowiedz odpowiedz = zapytaj(frame, kcontext.getKieRuntime(), "ARE YOU CUDDLY?", warianty);
+    insert (odpowiedz);
+end
+
+rule "ARE YOU CUDDLY? - MY MOTHER SAYS I AM - GIANT ARMADILLO"
+    when
+    Odpowiedz(pytanie == "ARE YOU CUDDLY?" && odpowiedz == "MY MOTHER SAYS I AM")
+    then
+    polec(frame, kcontext.getKieRuntime(), "GIANT ARMADILLO");
+end
+
+
+rule "ARE YOU CUDDLY? - PEOPLE OTHER THAN MY MOTHER SAY I AM - KOALA BEAR"
+    when
+    Odpowiedz(pytanie == "ARE YOU CUDDLY?" && odpowiedz == "PEOPLE OTHER THAN MY MOTHER SAY I AM")
+    then
+    polec(frame, kcontext.getKieRuntime(), "KOALA BEAR");
+end
+
+
+rule "MY FAVORITE THING TO DO IS - SWIM - WHERE?"
+    when
+    Odpowiedz(pytanie == "MY FAVORITE THING TO DO IS" && odpowiedz == "SWIM")
+    then
+    ArrayList<String> warianty = new ArrayList<>();
+    warianty.add("THE SAND");
+    warianty.add("IN THE SHALLOWS");
+    warianty.add("THE DEEP BLUE SEA");
+    Odpowiedz odpowiedz = zapytaj(frame, kcontext.getKieRuntime(), "WHERE?", warianty);
+    insert (odpowiedz);
+end
+
+rule "WHERE? - THE SAND - DESERT MONITOR"
+    when
+    Odpowiedz(pytanie == "WHERE?" && odpowiedz == "THE SAND")
+    then
+    polec(frame, kcontext.getKieRuntime(), "DESERT MONITOR");
+end
+
+
+rule "WHERE? - IN THE SHALLOWS - WHICH ONES?"
+    when
+    Odpowiedz(pytanie == "WHERE?" && odpowiedz == "IN THE SHALLOWS")
+    then
+    ArrayList<String> warianty = new ArrayList<>();
+    warianty.add("SIDEWALK PUDDLES");
+    warianty.add("PONDS & LAKES");
+    warianty.add("RIVERS & STREAMS");
+    Odpowiedz odpowiedz = zapytaj(frame, kcontext.getKieRuntime(), "WHICH ONES?", warianty);
+    insert (odpowiedz);
+end
+
+rule "WHICH ONES? - SIDEWALK PUDDLES - DO YOU EAT FRENCH FRIES?"
+    when
+    Odpowiedz(pytanie == "WHICH ONES?" && odpowiedz == "SIDEWALK PUDDLES")
+    then
+    ArrayList<String> warianty = new ArrayList<>();
+    warianty.add("YES, AND PRETZELS");
+    warianty.add("NO");
+    Odpowiedz odpowiedz = zapytaj(frame, kcontext.getKieRuntime(), "DO YOU EAT FRENCH FRIES?", warianty);
+    insert (odpowiedz);
+end
+
+rule "DO YOU EAT FRENCH FRIES? - YES, AND PRETZELS - FERAL PIGEON"
+    when
+    Odpowiedz(pytanie == "DO YOU EAT FRENCH FRIES?" && odpowiedz == "YES, AND PRETZELS")
+    then
+    polec(frame, kcontext.getKieRuntime(), "FERAL PIGEON");
+end
+
+
+rule "DO YOU EAT FRENCH FRIES? - NO - PROBABLY ALGAE"
+    when
+    Odpowiedz(pytanie == "DO YOU EAT FRENCH FRIES?" && odpowiedz == "NO")
+    then
+    polec(frame, kcontext.getKieRuntime(), "PROBABLY ALGAE");
+end
+
+
+rule "WHICH ONES? - PONDS & LAKES - HOW'S YOUR BUOYANCY?"
+    when
+    Odpowiedz(pytanie == "WHICH ONES?" && odpowiedz == "PONDS & LAKES")
+    then
+    ArrayList<String> warianty = new ArrayList<>();
+    warianty.add("I SKINK LIKE A ROCK");
+    warianty.add("I COULDN'T SINK IF I TRIED");
+    Odpowiedz odpowiedz = zapytaj(frame, kcontext.getKieRuntime(), "HOW'S YOUR BUOYANCY?", warianty);
+    insert (odpowiedz);
+end
+
+rule "HOW'S YOUR BUOYANCY? - I SKINK LIKE A ROCK - THICK SHELLED RIVER MUSSEL"
+    when
+    Odpowiedz(pytanie == "HOW'S YOUR BUOYANCY?" && odpowiedz == "I SKINK LIKE A ROCK")
+    then
+    polec(frame, kcontext.getKieRuntime(), "THICK SHELLED RIVER MUSSEL");
+end
+
+
+rule "HOW'S YOUR BUOYANCY? - I COULDN'T SINK IF I TRIED - LESSER SNOW GOOSE"
+    when
+    Odpowiedz(pytanie == "HOW'S YOUR BUOYANCY?" && odpowiedz == "I COULDN'T SINK IF I TRIED")
+    then
+    polec(frame, kcontext.getKieRuntime(), "LESSER SNOW GOOSE");
+end
+
+
+rule "WHICH ONES? - RIVERS & STREAMS - RECREATIONALLY?"
+    when
+    Odpowiedz(pytanie == "WHICH ONES?" && odpowiedz == "RIVERS & STREAMS")
+    then
+    ArrayList<String> warianty = new ArrayList<>();
+    warianty.add("I LIKE TO GOOF AROUND");
+    warianty.add("I CAN BE PRETTY INTENSE");
+    Odpowiedz odpowiedz = zapytaj(frame, kcontext.getKieRuntime(), "RECREATIONALLY?", warianty);
+    insert (odpowiedz);
+end
+
+rule "RECREATIONALLY? - I LIKE TO GOOF AROUND - EURASION RIVER OTTER"
+    when
+    Odpowiedz(pytanie == "RECREATIONALLY?" && odpowiedz == "I LIKE TO GOOF AROUND")
+    then
+    polec(frame, kcontext.getKieRuntime(), "EURASION RIVER OTTER");
+end
+
+
+rule "RECREATIONALLY? - I CAN BE PRETTY INTENSE - RED PIRHANA"
+    when
+    Odpowiedz(pytanie == "RECREATIONALLY?" && odpowiedz == "I CAN BE PRETTY INTENSE")
+    then
+    polec(frame, kcontext.getKieRuntime(), "RED PIRHANA");
+end
+
+
+rule "WHERE? - THE DEEP BLUE SEA - CAN YOU SEE THE LIGHT?"
+    when
+    Odpowiedz(pytanie == "WHERE?" && odpowiedz == "THE DEEP BLUE SEA")
+    then
+    ArrayList<String> warianty = new ArrayList<>();
+    warianty.add("NO, THE DEEP BLUE SEA");
+    warianty.add("YES");
+    Odpowiedz odpowiedz = zapytaj(frame, kcontext.getKieRuntime(), "CAN YOU SEE THE LIGHT?", warianty);
+    insert (odpowiedz);
+end
+
+rule "CAN YOU SEE THE LIGHT? - NO, THE DEEP BLUE SEA - ARE YOU SCARY?"
+    when
+    Odpowiedz(pytanie == "CAN YOU SEE THE LIGHT?" && odpowiedz == "NO, THE DEEP BLUE SEA")
+    then
+    ArrayList<String> warianty = new ArrayList<>();
+    warianty.add("NO");
+    warianty.add("YES");
+    Odpowiedz odpowiedz = zapytaj(frame, kcontext.getKieRuntime(), "ARE YOU SCARY?", warianty);
+    insert (odpowiedz);
+end
+
+rule "ARE YOU SCARY? - NO - WHICH DO YOU HAVE MORE?"
+    when
+    Odpowiedz(pytanie == "ARE YOU SCARY?" && odpowiedz == "NO")
+    then
+    ArrayList<String> warianty = new ArrayList<>();
+    warianty.add("TEETH");
+    warianty.add("APPENDAGES");
+    Odpowiedz odpowiedz = zapytaj(frame, kcontext.getKieRuntime(), "WHICH DO YOU HAVE MORE?", warianty);
+    insert (odpowiedz);
+end
+
+rule "ARE YOU SCARY? - YES - WHICH DO YOU HAVE MORE?"
+    when
+    Odpowiedz(pytanie == "ARE YOU SCARY?" && odpowiedz == "YES")
+    then
+    ArrayList<String> warianty = new ArrayList<>();
+    warianty.add("TEETH");
+    warianty.add("APPENDAGES");
+    Odpowiedz odpowiedz = zapytaj(frame, kcontext.getKieRuntime(), "WHICH DO YOU HAVE MORE?", warianty);
+    insert (odpowiedz);
+end
+
+rule "CAN YOU SEE THE LIGHT? - YES - ALONE?"
+    when
+    Odpowiedz(pytanie == "CAN YOU SEE THE LIGHT?" && odpowiedz == "YES")
+    then
+    ArrayList<String> warianty = new ArrayList<>();
+    warianty.add("YES");
+    warianty.add("NO");
+    Odpowiedz odpowiedz = zapytaj(frame, kcontext.getKieRuntime(), "ALONE?", warianty);
+    insert (odpowiedz);
+end
+
+rule "ALONE? - YES - BUMMER. WHY?"
+    when
+    Odpowiedz(pytanie == "ALONE?" && odpowiedz == "YES")
+    then
+    ArrayList<String> warianty = new ArrayList<>();
+    warianty.add("BECAUSE I'M MEAN");
+    warianty.add("BECAUSE I FELL...INVISIBLE");
+    Odpowiedz odpowiedz = zapytaj(frame, kcontext.getKieRuntime(), "BUMMER. WHY?", warianty);
+    insert (odpowiedz);
+end
+
+rule "BUMMER. WHY? - BECAUSE I'M MEAN - BULL SHARK"
+    when
+    Odpowiedz(pytanie == "BUMMER. WHY?" && odpowiedz == "BECAUSE I'M MEAN")
+    then
+    polec(frame, kcontext.getKieRuntime(), "BULL SHARK");
+end
+
+
+rule "BUMMER. WHY? - BECAUSE I FELL...INVISIBLE - TRANSPARENT JELLYFISH"
+    when
+    Odpowiedz(pytanie == "BUMMER. WHY?" && odpowiedz == "BECAUSE I FELL...INVISIBLE")
+    then
+    polec(frame, kcontext.getKieRuntime(), "TRANSPARENT JELLYFISH");
+end
+
+
+rule "ALONE? - NO - WITH WHO?"
+    when
+    Odpowiedz(pytanie == "ALONE?" && odpowiedz == "NO")
+    then
+    ArrayList<String> warianty = new ArrayList<>();
+    warianty.add("MY LIFE MATE");
+    warianty.add("ALL 15,000 OF MY FACEBOOK FRIENDS");
+    Odpowiedz odpowiedz = zapytaj(frame, kcontext.getKieRuntime(), "WITH WHO?", warianty);
+    insert (odpowiedz);
+end
+
+rule "WITH WHO? - MY LIFE MATE - FRENCH ANGLEFISH"
+    when
+    Odpowiedz(pytanie == "WITH WHO?" && odpowiedz == "MY LIFE MATE")
+    then
+    polec(frame, kcontext.getKieRuntime(), "FRENCH ANGLEFISH");
+end
+
+
+rule "WITH WHO? - ALL 15,000 OF MY FACEBOOK FRIENDS - YELLOWTAIL BARRACUDA"
+    when
+    Odpowiedz(pytanie == "WITH WHO?" && odpowiedz == "ALL 15,000 OF MY FACEBOOK FRIENDS")
+    then
+    polec(frame, kcontext.getKieRuntime(), "YELLOWTAIL BARRACUDA");
+end
+
+
+rule "MY FAVORITE THING TO DO IS - RUN - HOW FAST?"
+    when
+    Odpowiedz(pytanie == "MY FAVORITE THING TO DO IS" && odpowiedz == "RUN")
+    then
+    ArrayList<String> warianty = new ArrayList<>();
+    warianty.add("I'M PRETTY QUICK");
+    warianty.add("SO FAST I FLY");
+    warianty.add("KIDDING...I WALK");
+    Odpowiedz odpowiedz = zapytaj(frame, kcontext.getKieRuntime(), "HOW FAST?", warianty);
+    insert (odpowiedz);
+end
+
+rule "HOW FAST? - I'M PRETTY QUICK - MOSTLY INDORS?"
+    when
+    Odpowiedz(pytanie == "HOW FAST?" && odpowiedz == "I'M PRETTY QUICK")
+    then
+    ArrayList<String> warianty = new ArrayList<>();
+    warianty.add("YES");
+    warianty.add("NO");
+    Odpowiedz odpowiedz = zapytaj(frame, kcontext.getKieRuntime(), "MOSTLY INDORS?", warianty);
+    insert (odpowiedz);
+end
+
+rule "MOSTLY INDORS? - YES - DO YOU OWN OR RENT?"
+    when
+    Odpowiedz(pytanie == "MOSTLY INDORS?" && odpowiedz == "YES")
+    then
+    ArrayList<String> warianty = new ArrayList<>();
+    warianty.add("IF I PEE ON IT, I OWN IT, RIGHT?");
+    warianty.add("I'M BETWEEN FLOORS AT THE MOMENT");
+    Odpowiedz odpowiedz = zapytaj(frame, kcontext.getKieRuntime(), "DO YOU OWN OR RENT?", warianty);
+    insert (odpowiedz);
+end
+
+rule "DO YOU OWN OR RENT? - IF I PEE ON IT, I OWN IT, RIGHT? - MINIATURE SCHNAUZER"
+    when
+    Odpowiedz(pytanie == "DO YOU OWN OR RENT?" && odpowiedz == "IF I PEE ON IT, I OWN IT, RIGHT?")
+    then
+    polec(frame, kcontext.getKieRuntime(), "MINIATURE SCHNAUZER");
+end
+
+
+rule "DO YOU OWN OR RENT? - I'M BETWEEN FLOORS AT THE MOMENT - COCKROACH"
+    when
+    Odpowiedz(pytanie == "DO YOU OWN OR RENT?" && odpowiedz == "I'M BETWEEN FLOORS AT THE MOMENT")
+    then
+    polec(frame, kcontext.getKieRuntime(), "COCKROACH");
+end
+
+
+rule "MOSTLY INDORS? - NO - WHAT'S ON YOUR IPOD?"
+    when
+    Odpowiedz(pytanie == "MOSTLY INDORS?" && odpowiedz == "NO")
+    then
+    ArrayList<String> warianty = new ArrayList<>();
+    warianty.add("HAKUNA MATATA");
+    warianty.add("MY OLD KENTUCKY HOME");
+    Odpowiedz odpowiedz = zapytaj(frame, kcontext.getKieRuntime(), "WHAT'S ON YOUR IPOD?", warianty);
+    insert (odpowiedz);
+end
+
+rule "WHAT'S ON YOUR IPOD? - HAKUNA MATATA - AFRICAN LION"
+    when
+    Odpowiedz(pytanie == "WHAT'S ON YOUR IPOD?" && odpowiedz == "HAKUNA MATATA")
+    then
+    polec(frame, kcontext.getKieRuntime(), "AFRICAN LION");
+end
+
+
+rule "WHAT'S ON YOUR IPOD? - MY OLD KENTUCKY HOME - QUARTERHORSE"
+    when
+    Odpowiedz(pytanie == "WHAT'S ON YOUR IPOD?" && odpowiedz == "MY OLD KENTUCKY HOME")
+    then
+    polec(frame, kcontext.getKieRuntime(), "QUARTERHORSE");
+end
+
+
+rule "HOW FAST? - SO FAST I FLY - LITERALLY?"
+    when
+    Odpowiedz(pytanie == "HOW FAST?" && odpowiedz == "SO FAST I FLY")
+    then
+    ArrayList<String> warianty = new ArrayList<>();
+    warianty.add("YES");
+    warianty.add("NO");
+    Odpowiedz odpowiedz = zapytaj(frame, kcontext.getKieRuntime(), "LITERALLY?", warianty);
+    insert (odpowiedz);
+end
+
+rule "LITERALLY? - YES - PEREGRINE FALCON"
+    when
+    Odpowiedz(pytanie == "LITERALLY?" && odpowiedz == "YES")
+    then
+    polec(frame, kcontext.getKieRuntime(), "PEREGRINE FALCON");
+end
+
+
+rule "LITERALLY? - NO - HOW SO, THEN?"
+    when
+    Odpowiedz(pytanie == "LITERALLY?" && odpowiedz == "NO")
+    then
+    ArrayList<String> warianty = new ArrayList<>();
+    warianty.add("IN MY DREAMS");
+    warianty.add("MATAPHORACALLY");
+    Odpowiedz odpowiedz = zapytaj(frame, kcontext.getKieRuntime(), "HOW SO, THEN?", warianty);
+    insert (odpowiedz);
+end
+
+rule "HOW SO, THEN? - IN MY DREAMS - TANZANIA OSTRICH"
+    when
+    Odpowiedz(pytanie == "HOW SO, THEN?" && odpowiedz == "IN MY DREAMS")
+    then
+    polec(frame, kcontext.getKieRuntime(), "TANZANIA OSTRICH");
+end
+
+
+rule "HOW SO, THEN? - MATAPHORACALLY - CHEETAH"
+    when
+    Odpowiedz(pytanie == "HOW SO, THEN?" && odpowiedz == "MATAPHORACALLY")
+    then
+    polec(frame, kcontext.getKieRuntime(), "CHEETAH");
+end
+
+
+rule "HOW FAST? - KIDDING...I WALK - WITH HASTE?"
+    when
+    Odpowiedz(pytanie == "HOW FAST?" && odpowiedz == "KIDDING...I WALK")
+    then
+    ArrayList<String> warianty = new ArrayList<>();
+    warianty.add("YES");
+    warianty.add("NO");
+    Odpowiedz odpowiedz = zapytaj(frame, kcontext.getKieRuntime(), "WITH HASTE?", warianty);
+    insert (odpowiedz);
+end
+
+rule "WITH HASTE? - YES - HOW'S YOUR POSTURE?"
+    when
+    Odpowiedz(pytanie == "WITH HASTE?" && odpowiedz == "YES")
+    then
+    ArrayList<String> warianty = new ArrayList<>();
+    warianty.add("BLOODY GOOD, MATE");
+    warianty.add("QUASIMODO");
+    Odpowiedz odpowiedz = zapytaj(frame, kcontext.getKieRuntime(), "HOW'S YOUR POSTURE?", warianty);
+    insert (odpowiedz);
+end
+
+rule "HOW'S YOUR POSTURE? - BLOODY GOOD, MATE - ANTILOPINE KANGAROO"
+    when
+    Odpowiedz(pytanie == "HOW'S YOUR POSTURE?" && odpowiedz == "BLOODY GOOD, MATE")
+    then
+    polec(frame, kcontext.getKieRuntime(), "ANTILOPINE KANGAROO");
+end
+
+
+rule "HOW'S YOUR POSTURE? - QUASIMODO - SILVERBACK GORILLA"
+    when
+    Odpowiedz(pytanie == "HOW'S YOUR POSTURE?" && odpowiedz == "QUASIMODO")
+    then
+    polec(frame, kcontext.getKieRuntime(), "SILVERBACK GORILLA");
+end
+
+
+rule "WITH HASTE? - NO - GALAPAGOS TORTOISE"
+    when
+    Odpowiedz(pytanie == "WITH HASTE?" && odpowiedz == "NO")
+    then
+    polec(frame, kcontext.getKieRuntime(), "GALAPAGOS TORTOISE");
+end
+
+
+rule "MY FAVORITE THING TO DO IS - MATE - HIT IT & QUIT IT?"
+    when
+    Odpowiedz(pytanie == "MY FAVORITE THING TO DO IS" && odpowiedz == "MATE")
+    then
+    ArrayList<String> warianty = new ArrayList<>();
+    warianty.add("YES");
+    warianty.add("NO");
+    Odpowiedz odpowiedz = zapytaj(frame, kcontext.getKieRuntime(), "HIT IT & QUIT IT?", warianty);
+    insert (odpowiedz);
+end
+
+rule "HIT IT & QUIT IT? - YES - BOTTLENOSE DOLPHIN"
+    when
+    Odpowiedz(pytanie == "HIT IT & QUIT IT?" && odpowiedz == "YES")
+    then
+    polec(frame, kcontext.getKieRuntime(), "BOTTLENOSE DOLPHIN");
+end
+
+
+rule "HIT IT & QUIT IT? - NO - ARE YOU A STAY AT HOME DAD?"
+    when
+    Odpowiedz(pytanie == "HIT IT & QUIT IT?" && odpowiedz == "NO")
+    then
+    ArrayList<String> warianty = new ArrayList<>();
+    warianty.add("YES");
+    warianty.add("NO");
+    Odpowiedz odpowiedz = zapytaj(frame, kcontext.getKieRuntime(), "ARE YOU A STAY AT HOME DAD?", warianty);
+    insert (odpowiedz);
+end
+
+rule "ARE YOU A STAY AT HOME DAD? - YES - PYGMY SEAHORSE"
+    when
+    Odpowiedz(pytanie == "ARE YOU A STAY AT HOME DAD?" && odpowiedz == "YES")
+    then
+    polec(frame, kcontext.getKieRuntime(), "PYGMY SEAHORSE");
+end
+
+
+rule "ARE YOU A STAY AT HOME DAD? - NO - TURTLE DOVE"
+    when
+    Odpowiedz(pytanie == "ARE YOU A STAY AT HOME DAD?" && odpowiedz == "NO")
+    then
+    polec(frame, kcontext.getKieRuntime(), "TURTLE DOVE");
+end
+
+rule "MY FAVORITE THING TO DO IS - I DON'T UNDERSTAND THIS CHART - IT'S OK;NO ONE EXPECTS YOU TO"
+    when
+    Odpowiedz(pytanie == "MY FAVORITE THING TO DO IS" && odpowiedz == "I DON'T UNDERSTAND THIS CHART")
+    then
+    ArrayList<String> warianty = new ArrayList<>();
+    warianty.add("IT'S OK;NO ONE EXPECTS YOU TO");
+    Odpowiedz odpowiedz = zapytaj(frame, kcontext.getKieRuntime(), "", warianty);
+    insert (odpowiedz);
+end
+
+rule "MY FAVORITE THING TO DO IS - I DON'T UNDERSTAND THIS CHART - IT'S OK;NO ONE EXPECTS YOU TO2"
+    when
+    Odpowiedz(odpowiedz == "IT'S OK;NO ONE EXPECTS YOU TO")
+    then
+    polec(frame, kcontext.getKieRuntime(), "BELGIUM MILK SHEEP");
+end
+
+
+
+function void polec(JFrame frame, KieRuntime krt, String polecane) {
+    final JPanel panel = new JPanel();
+    String text = polecane;
+    panel.add(new JLabel(text));
+    JOptionPane.showMessageDialog(frame, panel);
+}
+
+function Odpowiedz zapytaj(JFrame frame, KieRuntime krt, String trescPytania, ArrayList odpowiedzi) {
+
+    class Sluchacz implements ItemListener {
+        private Odpowiedz odpowiedz;
+        private String chosen;
+        public Sluchacz(Odpowiedz odp, String wybrana) {
+            this.odpowiedz = odp;
+            this.chosen = wybrana;
+        }
+
+        @Override
+        public void itemStateChanged(ItemEvent event) {
+            if (event.getStateChange() == ItemEvent.SELECTED) {
+                odpowiedz.setOdpowiedz(chosen);
+            }
+        }
+    }
+    Odpowiedz odpowiedz = new Odpowiedz(trescPytania, (String) odpowiedzi.get(0));
+
+    final JPanel panel = new JPanel(new GridLayout(0, 1));
+    panel.add(new JLabel(trescPytania));
+
+    ArrayList < JRadioButton > listaButtonow = new ArrayList < > ();
+
+    for (int i = 0; i < odpowiedzi.size(); i++) {
+        String text = (String) odpowiedzi.get(i);
+        JRadioButton nowy = new JRadioButton(text);
+        Sluchacz nowySluchacz = new Sluchacz(odpowiedz, text);
+        nowy.addItemListener(nowySluchacz);
+        listaButtonow.add(nowy);
+    }
+
+    listaButtonow.get(0).setSelected(true);
+    odpowiedz.setOdpowiedz((String) odpowiedzi.get(0));
+
+    ButtonGroup group = new ButtonGroup();
+    for (int i = 0; i < listaButtonow.size(); i++) {
+        group.add(listaButtonow.get(i));
+        panel.add(listaButtonow.get(i));
+    }
+    Object[] options = {
+        "Proceed"
+    };
+    if (JOptionPane.showConfirmDialog(frame, panel, "Question", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE) < 0) {
+        odpowiedz.setOdpowiedz("Zakoncz program");
+    }
+
+    return odpowiedz;
+}
